@@ -31,12 +31,14 @@
 				A: <input class="fields" id="a" type="float"/>
 				B: <input class="fields" id="b" type="float"/>
 				C: <input class="fields" id="c" type="float"/>
+				D: <input class="fields" id="d" type="float"/>
+				E: <input class="fields" id="e" type="float"/>
 				<input type="submit" />
 			</form>
 		</div>
 		<!--d3 code-->
 		<script>
-			var data = [10,50,200];
+			var dataInit = [10,50,200, 300, 500];
 			var margin = {top: 20, right: 20, bottom: 30, left: 40},
 				width = 960 - margin.left - margin.right,
 				height = 500 - margin.top - margin.bottom;
@@ -62,8 +64,26 @@
 			  .append("g")
 			  	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+		  	function update(data) { 
+		  		//DATA JOIN
+	  			//Join new data with old elements, if any.
+	  			console.log(data);
+  				svg.selectAll(".bar")
+  					.data(data)
+				  .enter().append("rect")
+				  	.attr("x", function(d, i) { return i * 200; })
+		  		  	.attr("width", function(d) {return 100;})
+		  		  	.attr("y", function(d) { return height - d;})
+		  		  	.attr("height", function(d) { return d; });
+
+  				console.log("second: " + data);
+
+		  	}
+
+		  	update(dataInit);
+
 			svg.selectAll(".bar")
-		  		.data(data)
+		  		.data(dataInit)
 	  		  .enter().append("rect")
 	  		  	.attr("x", function(d, i) { return i * 200; })
 	  		  	.attr("width", function(d) {return 100;})
@@ -76,14 +96,22 @@
 				var newA = document.getElementById("a").value;
 				var newB = document.getElementById("b").value;
 				var newC = document.getElementById("c").value;
+				var newD = document.getElementById("d").value;
+				var newE = document.getElementById("e").value;
 
+				var data = [newA, newB, newC, newD, newE];
+
+				update(data);
+
+				/*
 				svg.selectAll("rect")
-					.data([newA, newB, newC])
+					.data([newA, newB, newC, newD, newE])
 					.attr("y", function(d) { return height - d;})
 					.attr("height", function(d) { return d; });
-
+				*/
 				return false;
 			});
+
 		</script>
 	</body>
 </html>
