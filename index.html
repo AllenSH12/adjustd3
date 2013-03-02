@@ -6,19 +6,9 @@
 			body {
 				font: 10px sans-serif;
 			}
-			.axis path,
-			.axis line {
-			  fill: none;
-			  stroke: #000;
-			  shape-rendering: crispEdges;
-			}
-
-			.bar {
-			  fill: steelblue;
-			}
-
-			.x.axis path {
-			  display: none;
+			.viz {
+				fill: none;
+				stroke: #000;
 			}
 		</style>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
@@ -27,91 +17,71 @@
 	<body>
 		<div id="chart"></div>
 		<div>
+			<h1>Graph</h1>
 			<form>
-				A: <input class="fields" id="a" type="float"/>
-				B: <input class="fields" id="b" type="float"/>
-				C: <input class="fields" id="c" type="float"/>
-				D: <input class="fields" id="d" type="float"/>
-				E: <input class="fields" id="e" type="float"/>
+				A: <input class="fields" id="a" type="float" value="50"/>
+				B: <input class="fields" id="b" type="float" value="75"/>
+				C: <input class="fields" id="c" type="float" value="150"/>
+				D: <input class="fields" id="d" type="float" value="250"/>
+				E: <input class="fields" id="e" type="float" value="500"/><br/>
 				<input type="submit" />
 			</form>
 		</div>
 		<!--d3 code-->
 		<script>
-			var dataInit = [10,50,200, 300, 500];
-			var margin = {top: 20, right: 20, bottom: 30, left: 40},
-				width = 960 - margin.left - margin.right,
+			var data = [50, 75, 150, 250, 500];
+			var max = d3.max(data);
+
+			var margin = {top: 20, right: 20, bottom: 30, left: 50},
+				width = 1150 - margin.left - margin.right,
 				height = 500 - margin.top - margin.bottom;
-			var formatPercent = d3.format(".0%");
 
-			var x = d3.scale.ordinal()
-				.rangeRoundBands([0, width], .1);
-
-			var y = d3.scale.linear()
-				.range([height, 0]);
+			var x = d3.scale.linear().domain([0, data.length - 1]).range([0, width]);
+			var y = d3.scale.linear().domain([0, max]).range([height, 0]);
 
 			var xAxis = d3.svg.axis()
 				.scale(x)
-				.orient("bottom");
+				.orient("top");
 
 			var yAxis = d3.svg.axis()
 				.scale(y)
 				.orient("left")
 
-			var svg = d3.select(document.getElementById("chart")).append("svg")
-				.attr("width", width + margin.left + margin.right)
-				.attr("height", height + margin.top + margin.bottom)
-			  .append("g")
-			  	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			svg = d3.select('#chart')
+				.style('margin', '20px auto')
+				.style('width', "" + width + "px")
+				.append('svg:svg')
+				.attr('width',width)
+				.attr('height',height)
+				.attr('class','viz')
+				.append('svg:g')
 
-		  	function update(data) { 
-		  		//DATA JOIN
-	  			//Join new data with old elements, if any.
-	  			console.log(data);
-  				svg.selectAll(".bar")
-  					.data(data)
-				  .enter().append("rect")
-				  	.attr("x", function(d, i) { return i * 200; })
-		  		  	.attr("width", function(d) {return 100;})
-		  		  	.attr("y", function(d) { return height - d;})
-		  		  	.attr("height", function(d) { return d; });
+			var line = d3.svg.line().x(function(d, i) { return x(i); }).y(y)
 
-  				console.log("second: " + data);
-
-		  	}
-
-		  	update(dataInit);
-
-			svg.selectAll(".bar")
-		  		.data(dataInit)
-	  		  .enter().append("rect")
-	  		  	.attr("x", function(d, i) { return i * 200; })
-	  		  	.attr("width", function(d) {return 100;})
-	  		  	.attr("y", function(d) { return height - d;})
-	  		  	.attr("height", function(d) { return d; });
+			svg.selectAll('path.line')
+				.data([data])
+				.enter()
+				.append("svg:path")
+				.attr("d", line);
 		</script>
 		<!--on form submit-->
 		<script type="text/javascript">
 			$("form").submit(function() {
-				var newA = document.getElementById("a").value;
-				var newB = document.getElementById("b").value;
-				var newC = document.getElementById("c").value;
-				var newD = document.getElementById("d").value;
-				var newE = document.getElementById("e").value;
+				var newA = parseFloat(document.getElementById("a").value);
+				var newB = parseFloat(document.getElementById("b").value);
+				var newC = parseFloat(document.getElementById("c").value);
+				var newD = parseFloat(document.getElementById("d").value);
+				var newE = parseFloat(document.getElementById("e").value);
 
 				var data = [newA, newB, newC, newD, newE];
+				//var wheeee = findPriceTarget(data);
 
-				update(data);
-
-				/*
-				svg.selectAll("rect")
-					.data([newA, newB, newC, newD, newE])
-					.attr("y", function(d) { return height - d;})
-					.attr("height", function(d) { return d; });
-				*/
+				svg.selectAll("path")
+					.data([data])
+					.transition().duration(2000).delay(200)
+					.attr("d", line);
 				return false;
 			});
-
 		</script>
 	</body>
 </html>
