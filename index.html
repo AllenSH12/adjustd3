@@ -6,82 +6,214 @@
 			body {
 				font: 10px sans-serif;
 			}
-			.viz {
+			.axis path,
+			.axis line {
+			  fill: none;
+			  stroke: #000;
+			  shape-rendering: crispEdges;
+			}
+			.line, .sparkLine{
 				fill: none;
-				stroke: #000;
+				stroke: steelblue;
+				stroke-weight:1.5px;
+			}
+			.metric {
+				display: block;
+				font-size: 16px;
+			}
+			.gr {
+				text-align: center;
+			}
+			#submitButton {
+				float: right;
+			}
+			.fields {
+				width: 30px;
+			}
+			.ticker {
+				margin: 10px;
+				float: left;
+			}
+			.companyName {
+				margin: 10px;
+				float: right;
 			}
 		</style>
+		<!--cssgrid-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="resources/cssgrid/css/1140.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="resources/cssgrid/css/styles.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="resources/cssgrid/js/css3-mediaqueries.js"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="finFunctions.js"></script>
+		<script src="sparkLines.js"></script>
+		<script src="scatterplot.js"></script>
 	</head>
 	<body>
-		<div id="chart"></div>
-		<div>
-			<h1>Graph</h1>
-			<form>
-				A: <input class="fields" id="a" type="float" value="50"/>
-				B: <input class="fields" id="b" type="float" value="75"/>
-				C: <input class="fields" id="c" type="float" value="150"/>
-				D: <input class="fields" id="d" type="float" value="250"/>
-				E: <input class="fields" id="e" type="float" value="500"/><br/>
-				<input type="submit" />
-			</form>
+		<div class="row">
+				<h1 class="ticker">YELP</h1>
+				<h2 class="companyName">Yelp Inc.</h2>
+		</div>
+		<div class="row">
+			<div class="twelvecol last">
+				<div id="chart"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="sixcol">
+				<h1 class="gr">User Opinion</h1>
+			</div>
+			<div class="sixcol last">
+				<h1 class="gr">Growth Rates</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="sixcol">
+				<div id="histogram"></div>
+			</div>
+			<div class="threecol">
+				<div class="metric">
+					<form>
+					Revenue: <input class="fields" id="revenue" type="float" value="0"/><br/>
+					Historic:
+					<svg id="sparkOne" width="265" height="100"></svg>
+				</div>
+				<div class="metric">
+					Asset: <input class="fields" id="asset" type="float" value="0"/><br/>
+					Historic:
+					<svg id="sparkTwo" width="265" height="100"></svg>
+				</div>
+			</div>
+			<div class="threecol last">
+				<div class="metric">
+					Capital Expenditures: <input class="fields" id="capex" type="float" value="0"/><br/>
+					Historic:
+					<svg id="sparkThree" width="265" height="100"></svg>
+				</div>
+				<div class="metric">
+					Research & Development: <input class="fields" id="rnd" type="float" value="0"/><br/>
+					Historic:
+					<svg id="sparkFour" width="265" height="100"></svg>
+				</div>
+				<div class="metric">
+					<input id="submitButton" type="submit" />
+					</form>
+					<p id="priceTargets"></p>
+				</div>
+			</div>
 		</div>
 		<!--d3 code-->
-		<script>
-			var data = [50, 75, 150, 250, 500];
-			var max = d3.max(data);
-
-			var margin = {top: 20, right: 20, bottom: 30, left: 50},
-				width = 1150 - margin.left - margin.right,
-				height = 500 - margin.top - margin.bottom;
-
-			var x = d3.scale.linear().domain([0, data.length - 1]).range([0, width]);
-			var y = d3.scale.linear().domain([0, max]).range([height, 0]);
-
-			var xAxis = d3.svg.axis()
-				.scale(x)
-				.orient("top");
-
-			var yAxis = d3.svg.axis()
-				.scale(y)
-				.orient("left")
-
-			svg = d3.select('#chart')
-				.style('margin', '20px auto')
-				.style('width', "" + width + "px")
-				.append('svg:svg')
-				.attr('width',width)
-				.attr('height',height)
-				.attr('class','viz')
-				.append('svg:g')
-
-			var line = d3.svg.line().x(function(d, i) { return x(i); }).y(y)
-
-			svg.selectAll('path.line')
-				.data([data])
-				.enter()
-				.append("svg:path")
-				.attr("d", line);
-		</script>
+		<script src="getLineGraph.js"></script>
+		<script src="sparkOne.js"></script>
+		<script src="sparkTwo.js"></script>
+		<script src="sparkThree.js"></script>
+		<script src="sparkFour.js"></script>
 		<!--on form submit-->
 		<script type="text/javascript">
 			$("form").submit(function() {
-				var newA = parseFloat(document.getElementById("a").value);
-				var newB = parseFloat(document.getElementById("b").value);
-				var newC = parseFloat(document.getElementById("c").value);
-				var newD = parseFloat(document.getElementById("d").value);
-				var newE = parseFloat(document.getElementById("e").value);
+				var revenue = parseFloat(document.getElementById("revenue").value);
+				var asset = parseFloat(document.getElementById("asset").value);
+				var capex = parseFloat(document.getElementById("capex").value);
+				var rnd = parseFloat(document.getElementById("rnd").value);
+				
+				d3.csv("data/yelpSharePrices.csv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+					})
 
-				var data = [newA, newB, newC, newD, newE];
-				//var wheeee = findPriceTarget(data);
+				  	var priceTargets = findPriceTargets(revenue, asset, capex, rnd);
 
-				svg.selectAll("path")
-					.data([data])
-					.transition().duration(2000).delay(200)
-					.attr("d", line);
+				  	for (var i=0; i < priceTargets.length; i++) {
+				  		priceTargets[i] = Math.round(priceTargets[i]);
+				  		data[i].close = priceTargets[i];
+				  	}
+
+				  	document.getElementById('priceTargets').innerHTML = priceTargets.reverse();
+
+					x.domain(d3.extent(data, function(d) { return d.date; }));
+				  	y.domain(d3.extent(data, function(d) { return d.close; }));
+
+					svg.selectAll("path")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d", line);
+				});
+				d3.tsv("data/sparkOne.tsv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+					})
+					for (var i=8; i < data.length; i++) {
+						data[i].close = data[i].close * (1 + revenue);
+					}
+
+					xSpark.domain(d3.extent(data, function(d) { return d.date; }));
+				  	ySpark.domain(d3.extent(data, function(d) { return d.close; }));
+
+					sparkOne.selectAll("path")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d",sparkLine);
+				});
+				d3.tsv("data/sparkTwo.tsv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+					})
+					for (var i=8; i < data.length; i++) {
+						data[i].close = data[i].close * (1 + asset);
+					}
+
+					xSparkTwo.domain(d3.extent(data, function(d) { return d.date; }));
+				  	ySparkTwo.domain(d3.extent(data, function(d) { return d.close; }));
+
+					sparkTwo.selectAll("path")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d",sparkLineTwo);
+				});
+				d3.tsv("data/sparkThree.tsv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+					})
+					for (var i=8; i < data.length; i++) {
+						data[i].close = data[i].close * (1 + capex);
+					}
+
+					xSparkThree.domain(d3.extent(data, function(d) { return d.date; }));
+				  	ySparkThree.domain(d3.extent(data, function(d) { return d.close; }));
+
+					sparkThree.selectAll("path")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d",sparkLineThree);
+				});
+				d3.tsv("data/sparkFour.tsv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+					})
+					for (var i=8; i < data.length; i++) {
+						data[i].close = data[i].close * (1 + rnd);
+					}
+
+					xSparkFour.domain(d3.extent(data, function(d) { return d.date; }));
+				  	ySparkFour.domain(d3.extent(data, function(d) { return d.close; }));
+
+					sparkFour.selectAll("path")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d",sparkLineFour);
+				});
 				return false;
 			});
 		</script>
+		<script type="text/javascript">
+			addScatterplot("histogram")
+		</script>
+
 	</body>
 </html>
