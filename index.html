@@ -47,8 +47,8 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script src="finFunctions.js"></script>
-		<script src="sparkLines.js"></script>
 		<script src="scatterplot.js"></script>
+		<script src="sparkLines.js"></script>
 	</head>
 	<body>
 		<div class="row">
@@ -103,9 +103,14 @@
 				</div>
 			</div>
 		</div>
+		<!--get sparklines-->
+		<script type="text/javascript">
+			getSparkLine("data/sparkOne.tsv", "#sparkOne");
+		</script>
+
 		<!--d3 code-->
 		<script src="getLineGraph.js"></script>
-		<script src="sparkOne.js"></script>
+		<!--<script src="sparkOne.js"></script>-->
 		<script src="sparkTwo.js"></script>
 		<script src="sparkThree.js"></script>
 		<script src="sparkFour.js"></script>
@@ -141,6 +146,7 @@
 						.transition().duration(2000).delay(200)
 						.attr("d", line);
 				});
+				
 				d3.tsv("data/sparkOne.tsv", function(error, data) {
 					data.forEach(function(d) {
 						d.date = parseDate(d.date);
@@ -150,14 +156,15 @@
 						data[i].close = data[i].close * (1 + revenue);
 					}
 
-					xSpark.domain(d3.extent(data, function(d) { return d.date; }));
-				  	ySpark.domain(d3.extent(data, function(d) { return d.close; }));
+					x.domain(d3.extent(data, function(d) { return d.date; }));
+				  	y.domain(d3.extent(data, function(d) { return d.close; }));
 
-					sparkOne.selectAll("path")
+					document.getElementById('#sparkOne').selectAll("path")
 						.data([data])
 						.transition().duration(2000).delay(200)
 						.attr("d",sparkLine);
 				});
+				
 				d3.tsv("data/sparkTwo.tsv", function(error, data) {
 					data.forEach(function(d) {
 						d.date = parseDate(d.date);
