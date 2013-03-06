@@ -108,12 +108,12 @@
 		</div>
 		<!--get sparklines-->
 		<script type="text/javascript">
-			getSparkLine("data/sparkOne.tsv", "#sparkOne");
+			//getSparkLine("data/sparkOne.tsv", "#sparkOne");
 		</script>
 
 		<!--d3 code-->
 		<script src="getLineGraph.js"></script>
-		<!--<script src="sparkOne.js"></script>-->
+		<script src="sparkOne.js"></script>
 		<script src="sparkTwo.js"></script>
 		<script src="sparkThree.js"></script>
 		<script src="sparkFour.js"></script>
@@ -159,10 +159,10 @@
 						data[i].close = data[i].close * (1 + revenue);
 					}
 
-					x.domain(d3.extent(data, function(d) { return d.date; }));
-				  	y.domain(d3.extent(data, function(d) { return d.close; }));
+					xSpark.domain(d3.extent(data, function(d) { return d.date; }));
+				  	ySpark.domain(d3.extent(data, function(d) { return d.close; }));
 
-					document.getElementById('#sparkOne').selectAll("path")
+					sparkOne.selectAll("path")
 						.data([data])
 						.transition().duration(2000).delay(200)
 						.attr("d",sparkLine);
