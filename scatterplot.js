@@ -81,7 +81,7 @@ function addScatterplot(location) {
         .attr("r", 3.5)
         .attr("cx", function(d) { return x(d.price); })
         .attr("cy", function(d) { return y(d.accuracy); })
-        .style("fill", "steelblue");
+        .style("fill", "#3498DB");
 
     var legend = svg.selectAll(".legend")
         .data(color.domain())

@@ -1,6 +1,6 @@
-var margin = {top: 0, right: 0, bottom: 30, left: 0},
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
   width = 1140 - margin.left - margin.right,
-  height = 600 - margin.top - margin.bottom;
+  height = 500 - margin.top - margin.bottom;
 
 var x = d3.time.scale()
   .range([0, width])
@@ -10,25 +10,25 @@ var y = d3.scale.linear()
 
 var xAxis = d3.svg.axis()
   .scale(x)
-  .ticks(12)
   .orient("bottom");
 
 var yAxis = d3.svg.axis()
   .scale(y)
-  .ticks(10)
   .orient("left");
 
-
-var line = d3.svg.line()
+var area = d3.svg.area()
 	.interpolate("basis")
 	.x(function(d) { return x(d.date); })
-	.y(function(d) { return y(d.close); });
+  .y0(height)
+	.y1(function(d) { return y(d.close); });
 
 svg = d3.select('#chart')
 	.append('svg:svg')
 	.attr('width',width + margin.left + margin.right)
 	.attr('height',height + margin.top + margin.bottom)
-	.attr('class','line');
+	.attr('class','area')
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("data/yelpSharePrices.csv", function(error, data) {
 	data.forEach(function(d) {
@@ -37,37 +37,10 @@ d3.csv("data/yelpSharePrices.csv", function(error, data) {
 	})
 
 	x.domain(d3.extent(data, function(d) { return d.date; }));
-  	y.domain(d3.extent(data, function(d) { return d.close; }));
+	y.domain([0,d3.max(data, function(d) { return d.close; })]);
 
-	svg.append("path")
-		.datum(data)
-		.attr("class",line)
-		.attr("d", line);
-
-    svg.append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
-      .append("text")
-        .attr("class", "priceLabels")
-        .attr("x", width)
-        .attr("y", -6)
-        .style("text-anchor", "end")
-        .text("Time");
-
-    svg.append("g")
-        .attr("class", "axis")
-        .call(yAxis)
-      .append("text")
-        .attr("class", "priceLabels")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Price");
-
-    svg.selectAll(".line")
-      .data(x.ticks(24))
+    svg.selectAll(".area")
+      .data(x.ticks(12))
      .enter().append("line")
       .attr("x1", x)
       .attr("x2", x)
@@ -75,12 +48,39 @@ d3.csv("data/yelpSharePrices.csv", function(error, data) {
       .attr("y2", height)
       .style("stroke", "#ccc");
 
-    svg.selectAll(".line")
-      .data(y.ticks(10))
+    svg.selectAll(".area")
+      .data(y.ticks(5))
      .enter().append("line")
       .attr("x1", 0)
       .attr("x2", width)
       .attr("y1", y)
       .attr("y2", y)
       .style("stroke", "#ccc");
+
+    svg.append("path")
+      .datum(data)
+      .attr("class","area")
+      .attr("d", area);
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+      .append("text")
+        .attr("class", "labels")
+        .attr("x", width)
+        .attr("y", -6)
+        .style("text-anchor", "end")
+        .text("Time");
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+      .append("text")
+        .attr("class", "labels")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text("Price");
 });

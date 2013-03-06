@@ -12,9 +12,12 @@
 			  stroke: #000;
 			  shape-rendering: crispEdges;
 			}
-			.line, .sparkLine{
+			svg .area {
+				fill:#3498DB;
+			}
+			.sparkLine{
 				fill: none;
-				stroke: steelblue;
+				stroke: #3498DB;
 				stroke-weight:1.5px;
 			}
 			.metric {
@@ -139,12 +142,12 @@
 				  	document.getElementById('priceTargets').innerHTML = priceTargets.reverse();
 
 					x.domain(d3.extent(data, function(d) { return d.date; }));
-				  	y.domain(d3.extent(data, function(d) { return d.close; }));
+				  	y.domain([0,d3.max(data, function(d) { return d.close; })]);
 
 					svg.selectAll("path")
 						.data([data])
 						.transition().duration(2000).delay(200)
-						.attr("d", line);
+						.attr("d", area);
 				});
 				
 				d3.tsv("data/sparkOne.tsv", function(error, data) {
