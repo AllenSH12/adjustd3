@@ -1,6 +1,6 @@
 var marginSparkOne = {top: 5, right: 5, bottom: 5, left: 5},
 	sparkWidth = 265 - marginSparkOne.left - marginSparkOne.right,
-	sparkHeight = 100 - marginSparkOne.top - marginSparkOne.bottom;
+	sparkHeight = 50 - marginSparkOne.top - marginSparkOne.bottom;
 
 var parseDate = d3.time.format("%d-%b-%y").parse;
 
@@ -11,7 +11,6 @@ var ySpark = d3.scale.linear()
 	.range([sparkHeight, 0]);
 
 var sparkLine = d3.svg.line()
-	.interpolate("basis")
 	.x(function(d) { return xSpark(d.date); })
 	.y(function(d) { return ySpark(d.close); });
 
@@ -38,7 +37,7 @@ sparkOne.append("path")
 	.attr("d", sparkLine);
 });
 
-var aspect = 265 / 100,
+var aspect = 265 / 50,
 chart = $("#sparkOne");
 $(window).on("resize", function() {
 	var targetWidth = chart.parent().width();

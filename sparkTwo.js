@@ -1,6 +1,6 @@
 var marginsparkTwo = {top: 5, right: 5, bottom: 5, left: 5},
 	sparkWidthTwo = 265 - marginsparkTwo.left - marginsparkTwo.right,
-	sparkHeightTwo = 100 - marginsparkTwo.top - marginsparkTwo.bottom;
+	sparkHeightTwo = 50 - marginsparkTwo.top - marginsparkTwo.bottom;
 
 var parseDate = d3.time.format("%d-%b-%y").parse;
 
@@ -11,7 +11,6 @@ var ySparkTwo = d3.scale.linear()
 	.range([sparkHeightTwo, 0]);
 
 var sparkLineTwo = d3.svg.line()
-	.interpolate("basis")
 	.x(function(d) { return xSparkTwo(d.date); })
 	.y(function(d) { return ySparkTwo(d.close); });
 
