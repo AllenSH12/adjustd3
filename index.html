@@ -102,9 +102,14 @@
 				<div class="metric">
 					<input id="submitButton" type="submit" />
 					</form>
-					<p id="priceTargets"></p>
 				</div>
 			</div>
+		</div>
+		<div class="row">
+			<div class="sixcol"></div>
+			<div class="sixcol">
+				<p id="priceTargets"></p>
+			</div>			
 		</div>
 		<!--get sparklines-->
 		<script type="text/javascript">
@@ -148,6 +153,14 @@
 						.data([data])
 						.transition().duration(2000).delay(200)
 						.attr("d", area);
+
+					var yAxis = d3.svg.axis()
+						.scale(y.domain())
+						.orient("left");
+
+					svg.select("y axis")
+						.transition().duration(2000).delay(200)
+						.call(yAxis);
 				});
 				
 				d3.tsv("data/sparkOne.tsv", function(error, data) {
@@ -163,7 +176,6 @@
 				  	ySpark.domain(d3.extent(data, function(d) { return d.close; }));
 
 					sparkOne.selectAll("path")
-						.data([data])
 						.transition().duration(2000).delay(200)
 						.attr("d",sparkLine);
 				});
