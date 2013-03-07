@@ -149,18 +149,16 @@
 					x.domain(d3.extent(data, function(d) { return d.date; }));
 				  	y.domain([0,d3.max(data, function(d) { return d.close; })]);
 
+				  	console.log(d3.max(data, function(d) { return d.close; }));
+
 					svg.selectAll("path")
 						.data([data])
 						.transition().duration(2000).delay(200)
 						.attr("d", area);
 
-					var yAxis = d3.svg.axis()
-						.scale(y.domain())
-						.orient("left");
-
-					svg.select("y axis")
+					var axis = d3.selectAll("g.y")
 						.transition().duration(2000).delay(200)
-						.call(yAxis);
+						.call(yAxis)
 				});
 				
 				d3.tsv("data/sparkOne.tsv", function(error, data) {

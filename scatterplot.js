@@ -46,7 +46,7 @@ function addScatterplot(location) {
         .text("Price Target");
 
     svg.append("g")
-        .attr("class", "y axis")
+        .attr("class", "yAxis axis")
         .call(yAxis)
       .append("text")
         .attr("class", "scatterLabel")
