@@ -2,6 +2,8 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
   width = 1140 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;
 
+var max = 0;
+
 var x = d3.time.scale()
   .range([0, width])
 
@@ -16,6 +18,11 @@ var yAxis = d3.svg.axis()
   .scale(y)
   .orient("left");
 
+var line = d3.svg.line()
+  .interpolate("basis")
+  .x(function(d) { return x(d.date); })
+  .y(function(d) { return y(d.close); });
+
 var area = d3.svg.area()
 	.interpolate("basis")
 	.x(function(d) { return x(d.date); })
@@ -23,12 +30,11 @@ var area = d3.svg.area()
 	.y1(function(d) { return y(d.close); });
 
 svg = d3.select('#chart')
-	.append('svg:svg')
-	.attr('width',width + margin.left + margin.right)
-	.attr('height',height + margin.top + margin.bottom)
-	.attr('class','area')
+  	.append('svg:svg')
+  	.attr('width',width + margin.left + margin.right)
+  	.attr('height',height + margin.top + margin.bottom)
   .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("data/yelpSharePrices.csv", function(error, data) {
 	data.forEach(function(d) {
@@ -36,8 +42,14 @@ d3.csv("data/yelpSharePrices.csv", function(error, data) {
 		d.close = +d.close;
 	})
 
+  if (d3.max(data, function(d) { return d.close; }) > max) {
+    max = d3.max(data, function(d) { return d.close; });
+  } else {
+
+  }
+
 	x.domain(d3.extent(data, function(d) { return d.date; }));
-	y.domain([0,d3.max(data, function(d) { return d.close; })]);
+	y.domain([0,max]);
 
     svg.selectAll(".area")
       .data(x.ticks(12))
@@ -83,4 +95,38 @@ d3.csv("data/yelpSharePrices.csv", function(error, data) {
         .attr("dy", ".71em")
         .style("text-anchor", "end")
         .text("Price");
+});
+
+d3.csv("data/yelpConsensusUpsidePrices.csv", function(error, data) {
+  data.forEach(function(d) {
+    d.date = parseDate(d.date);
+    d.close = +d.close;
+  })
+
+  if (d3.max(data, function(d) { return d.close; }) > max) {
+    max = d3.max(data, function(d) { return d.close; });
+  } else {}
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "upsideLine")
+      .attr("d", line);
+});
+
+d3.csv("data/yelpConsensusDownsidePrices.csv", function(error, data) {
+  data.forEach(function(d) {
+    d.date = parseDate(d.date);
+    d.close = +d.close;
+  })
+  
+  if (d3.max(data, function(d) { return d.close; }) > max) {
+    max = d3.max(data, function(d) { return d.close; });
+  } else {
+
+  }
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "downsideLine")
+      .attr("d", line);
 });
