@@ -1,62 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<style>
-			body {
-				font: 10px sans-serif;
-			}
-			.axis path,
-			.axis line {
-			  fill: none;
-			  stroke: #000;
-			  shape-rendering: crispEdges;
-			}
-			svg .area {
-				fill:#3498DB;
-			}
-			.sparkLine{
-				fill: none;
-				stroke: #3498DB;
-			}
-			.upsideLine {
-				fill: none;
-				stroke: #27ae60;
-				shape-rendering: crispEdges;
-			}
-			.downsideLine {
-				fill: none;
-				stroke: #c0392b;
-				shape-rendering: crispEdges;
-			}
-			.metric {
-				display: block;
-				font-size: 16px;
-			}
-			.gr {
-				text-align: center;
-			}
-			#submitButton {
-				float: right;
-			}
-			.fields {
-				width: 30px;
-			}
-			.ticker {
-				margin: 10px;
-				float: left;
-			}
-			.companyName {
-				margin: 10px;
-				float: right;
-			}
-		</style>
 		<!--cssgrid-->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/stockMosaics.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="resources/cssgrid/css/1140.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="resources/cssgrid/css/styles.css" type="text/css" media="screen" />
-		<script type="text/javascript" src="resources/cssgrid/js/css3-mediaqueries.js"></script>
+	 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+	 	<script type="text/javascript" src="resources/cssgrid/js/css3-mediaqueries.js"></script>
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
 		<script src="http://d3js.org/d3.v3.min.js"></script>
 		<script src="finFunctions.js"></script>
 		<script src="scatterplot.js"></script>
@@ -77,36 +31,45 @@
 				<h1 class="gr">User Opinion</h1>
 			</div>
 			<div class="sixcol last">
-				<h1 class="gr">Growth Rates</h1>
+				<h1 class="gr">Future Prices</h1>
 			</div>
 		</div>
 		<div class="row">
 			<div class="sixcol">
 				<div id="histogram"></div>
 			</div>
+			<div class="sixcol last">
+				<input class="field" id="priceTargetLabel" value="17,23,29,36,40,34,26,20" />
+
+				<h2>Growth Rates (%)</h2>
+			</div>
 			<div class="threecol">
 				<div class="metric">
 					<form>
-					Revenue: <input class="fields" id="revenue" type="float" value="0"/><br/>
+					Revenue: <input class="field" type="float" id="revenue" value="0.00" />
+					<div class= "slider" id="revenueSlider"></div>
 					Historic:
-					<svg id="sparkOne" width="265" height="100"></svg>
+					<svg id="sparkOne" width="265" height="50"></svg>
 				</div>
 				<div class="metric">
-					Asset: <input class="fields" id="asset" type="float" value="0"/><br/>
+					Asset: <input class="field" type="float" id="asset" value="0.00" />
+					<div class= "slider" id="assetSlider"></div>
 					Historic:
-					<svg id="sparkTwo" width="265" height="100"></svg>
+					<svg id="sparkTwo" width="265" height="50"></svg>
 				</div>
 			</div>
 			<div class="threecol last">
 				<div class="metric">
-					Capital Expenditures: <input class="fields" id="capex" type="float" value="0"/><br/>
+					Cap Ex: <input class="field" type="float" id="capex" value="0.00" />
+					<div class= "slider" id="capExSlider"></div>
 					Historic:
-					<svg id="sparkThree" width="265" height="100"></svg>
+					<svg id="sparkThree" width="265" height="50"></svg>
 				</div>
 				<div class="metric">
-					Research & Development: <input class="fields" id="rnd" type="float" value="0"/><br/>
+					R & D: <input class="field" type="float" id="rnd" value="0.00" />
+					<div class= "slider" id="rndSlider"></div>
 					Historic:
-					<svg id="sparkFour" width="265" height="100"></svg>
+					<svg id="sparkFour" width="265" height="50"></svg>
 				</div>
 				<div class="metric">
 					<input id="submitButton" type="submit" />
@@ -114,15 +77,54 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="sixcol"></div>
-			<div class="sixcol">
-				<p id="priceTargets"></p>
-			</div>			
-		</div>
 		<!--get sparklines-->
 		<script type="text/javascript">
 			//getSparkLine("data/sparkOne.tsv", "#sparkOne");
+		</script>
+
+		<script>
+			$(function() {
+		    	$(document.getElementById("revenueSlider")).slider({
+		    		value:0,
+				    min: -.16,
+				    max: .25,
+				    step: .01,
+				    slide: function( event, ui ) {
+				    	$( "#revenue" ).val(ui.value );
+				    }
+		    	});
+		    	$(document.getElementById("assetSlider")).slider({
+		    		value:0,
+				    min: -10,
+				    max: 10,
+				    step: 1,
+				    slide: function( event, ui ) {
+				    	$( "#asset" ).val(ui.value );
+				    }
+		    	});
+		    	$(document.getElementById("capExSlider")).slider({
+		    		value:0,
+				    min: -10,
+				    max: 10,
+				    step: 1,
+				    slide: function( event, ui ) {
+				    	$( "#capex" ).val(ui.value );
+				    }
+		    	});
+		    	$(document.getElementById("rndSlider")).slider({
+		    		value:0,
+				    min: -25,
+				    max: 25,
+				    step: 1,
+				    slide: function( event, ui ) {
+				    	$( "#rnd" ).val(ui.value );
+				    }
+		    	});
+		    	$( "#revenue" ).val($( "#revenueSlider" ).slider( "value" ) );
+		    	$( "#asset" ).val($( "#assetSlider" ).slider( "value" ) );
+		    	$( "#capex" ).val($( "#capExSlider" ).slider( "value" ) );
+		    	$( "#rnd" ).val($( "#rndSlider" ).slider( "value" ) );
+			});
 		</script>
 
 		<!--d3 code-->
@@ -144,6 +146,8 @@
 					data.forEach(function(d) {
 						d.date = parseDate(d.date);
 						d.close = +d.close;
+						d.upside = +d.upside;
+						d.downside = +d.downside;
 					})
 
 				  	var priceTargets = findPriceTargets(revenue, asset, capex, rnd);
@@ -153,17 +157,33 @@
 				  		data[i].close = priceTargets[i];
 				  	}
 
-				  	document.getElementById('priceTargets').innerHTML = priceTargets.reverse();
+				  	$( "#priceTargetLabel" ).val(priceTargets.reverse());
 
 					x.domain(d3.extent(data, function(d) { return d.date; }));
-				  	y.domain([0,d3.max(data, function(d) { return d.close; })]);
 
-				  	console.log(d3.max(data, function(d) { return d.close; }));
+					if (d3.max(data, function(d) { return d.close; }) > d3.max(data, function(d) { return d.upside; })) {
+						y.domain([0,d3.max(data, function(d) { return d.close; })]);
+					} else {
+						y.domain([0,d3.max(data, function(d) { return d.upside; })]);
+					}
 
-					svg.selectAll("path")
+					svg.selectAll("path.area")
 						.data([data])
 						.transition().duration(2000).delay(200)
 						.attr("d", area);
+
+					svg.selectAll("path#upsideLine")
+						.transition().duration(2000).delay(200)
+						.attr("d", upsideLine);
+
+					svg.selectAll("path#downsideLine")
+						.transition().duration(2000).delay(200)
+						.attr("d", downsideLine);
+
+					svg.selectAll("path#priceLine")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d", line);
 
 					var axis = d3.selectAll("g.y")
 						.transition().duration(2000).delay(200)

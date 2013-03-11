@@ -23,6 +23,16 @@ var line = d3.svg.line()
   .x(function(d) { return x(d.date); })
   .y(function(d) { return y(d.close); });
 
+var upsideLine = d3.svg.line()
+  .interpolate("basis")
+  .x(function(d) { return x(d.date); })
+  .y(function(d) { return y(d.upside); });
+
+var downsideLine = d3.svg.line()
+  .interpolate("basis")
+  .x(function(d) { return x(d.date); })
+  .y(function(d) { return y(d.downside); });
+
 var area = d3.svg.area()
 	.interpolate("basis")
 	.x(function(d) { return x(d.date); })
@@ -40,16 +50,12 @@ d3.csv("data/yelpSharePrices.csv", function(error, data) {
 	data.forEach(function(d) {
 		d.date = parseDate(d.date);
 		d.close = +d.close;
+    d.upside = +d.upside;
+    d.downside = +d.downside;
 	})
 
-  if (d3.max(data, function(d) { return d.close; }) > max) {
-    max = d3.max(data, function(d) { return d.close; });
-  } else {
-
-  }
-
 	x.domain(d3.extent(data, function(d) { return d.date; }));
-	y.domain([0,max]);
+	y.domain([0,d3.max(data, function(d) { return d.upside; })]);
 
     svg.selectAll(".area")
       .data(x.ticks(12))
@@ -74,59 +80,41 @@ d3.csv("data/yelpSharePrices.csv", function(error, data) {
       .attr("class","area")
       .attr("d", area);
 
+    svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("id","upsideLine")
+      .attr("d", upsideLine);
+
+    svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("id","downsideLine")
+      .attr("d", downsideLine);
+
+    svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("id","priceLine")
+      .attr("d", line);
+
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
       .append("text")
-        .attr("class", "labels")
         .attr("x", width)
         .attr("y", -6)
         .style("text-anchor", "end")
-        .text("Time");
+        .text("Date");
 
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis)
       .append("text")
-        .attr("class", "labels")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Price");
-});
-
-d3.csv("data/yelpConsensusUpsidePrices.csv", function(error, data) {
-  data.forEach(function(d) {
-    d.date = parseDate(d.date);
-    d.close = +d.close;
-  })
-
-  if (d3.max(data, function(d) { return d.close; }) > max) {
-    max = d3.max(data, function(d) { return d.close; });
-  } else {}
-
-  svg.append("path")
-      .datum(data)
-      .attr("class", "upsideLine")
-      .attr("d", line);
-});
-
-d3.csv("data/yelpConsensusDownsidePrices.csv", function(error, data) {
-  data.forEach(function(d) {
-    d.date = parseDate(d.date);
-    d.close = +d.close;
-  })
-  
-  if (d3.max(data, function(d) { return d.close; }) > max) {
-    max = d3.max(data, function(d) { return d.close; });
-  } else {
-
-  }
-
-  svg.append("path")
-      .datum(data)
-      .attr("class", "downsideLine")
-      .attr("d", line);
+        .text("Price ($)");
 });

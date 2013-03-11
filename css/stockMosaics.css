@@ -1,0 +1,79 @@
+body {
+	font: 10px sans-serif;
+	background-color: #bdc3c7;
+}
+.row {
+	background-color: #fff;
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+svg .area {
+	opacity: .5;
+	fill:#3498DB;
+}
+.line {
+	stroke-width:2px;
+}
+#priceLine {
+	fill:none;
+	stroke:#3498DB;
+}
+
+#upsideLine {
+	fill: none;
+	stroke: #27ae60;
+	shape-rendering: crispEdges;
+}
+#downsideLine {
+	fill: none;
+	stroke: #c0392b;
+	shape-rendering: crispEdges;
+}
+.sparkLine{
+	fill: none;
+	stroke: #3498DB;
+}
+.metric {
+	display: block;
+	font-size: 16px;
+}
+.gr {
+	text-align: center;
+}
+#submitButton {
+	float: right;
+}
+.field {
+	border: 0;
+	font-size: 16px;
+	text-align: right;
+	width: 50px;
+}
+.ticker {
+	margin: 10px;
+	float: left;
+}
+.companyName {
+	margin: 10px;
+	float: right;
+}
+.dot {
+  stroke: #000;
+  fill: url(#temperature-gradient);
+}
+.slider {
+	margin-top: 10px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	margin-left: 20px;
+}
+#priceTargetLabel {
+	width: 100%;
+	text-align: center;
+	font-size: 20px;
+	margin-bottom: 20px;
+}
