@@ -18,6 +18,14 @@
 		<script src="sparkLines.js"></script>
 	</head>
 	<body>
+		<div class="row" id="header">
+			<div class="fourcol">
+				<img src="images/logo-light-clear.png" id="logo"/>
+			</div>
+			<div class="eightcol last">
+				<p class="link">Log In</p>
+			</div>
+		</div>
 		<div class="row">
 				<h1 class="ticker">YELP</h1>
 				<h2 class="companyName">Yelp Inc.</h2>
@@ -29,7 +37,7 @@
 		</div>
 		<div class="row">
 			<div class="sixcol">
-				<h1 class="gr">User Opinion</h1>
+				<h1 class="gr">2013 User Price Estimates</h1>
 			</div>
 			<div class="sixcol last">
 				<h1 class="gr">Future Prices</h1>
@@ -49,13 +57,13 @@
 					<form>
 					Revenue: <input class="field" type="float" id="revenue" value="0.00" />
 					<div class= "slider" id="revenueSlider"></div>
-					Historic:
+					Historical Trend:
 					<svg id="sparkOne" width="265" height="50"></svg>
 				</div>
 				<div class="metric">
 					Asset: <input class="field" type="float" id="asset" value="0.00" />
 					<div class= "slider" id="assetSlider"></div>
-					Historic:
+					Historical Trend:
 					<svg id="sparkTwo" width="265" height="50"></svg>
 				</div>
 			</div>
@@ -63,13 +71,13 @@
 				<div class="metric">
 					Cap Ex: <input class="field" type="float" id="capex" value="0.00" />
 					<div class= "slider" id="capExSlider"></div>
-					Historic:
+					Historical Trend:
 					<svg id="sparkThree" width="265" height="50"></svg>
 				</div>
 				<div class="metric">
 					R & D: <input class="field" type="float" id="rnd" value="0.00" />
 					<div class= "slider" id="rndSlider"></div>
-					Historic:
+					Historical Trend:
 					<svg id="sparkFour" width="265" height="50"></svg>
 				</div>
 				<div class="metric">

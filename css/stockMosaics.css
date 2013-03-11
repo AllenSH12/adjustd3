@@ -1,9 +1,23 @@
 body {
 	font: 10px sans-serif;
-	background-color: #fff;
+	background-image: url("../images/light_wool.png")
 }
 .row {
 	background-color: #fff;
+	opacity: .9;
+}
+#header {
+	height:100px;
+	background-color: rgb(50,50,50);
+}
+#logo {
+	margin: 25px;
+}
+.link{
+	color: #ECF0EF;
+	text-decoration: underline;
+	font-size: 16px;
+	float: right;
 }
 .axis path,
 .axis line {

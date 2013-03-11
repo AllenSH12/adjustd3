@@ -70,7 +70,7 @@ function addScatterplot(location) {
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Prior Accuracy")
+        .text("Predictive Record")
 
     svg.selectAll(".dot")
         .data(data)
