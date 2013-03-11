@@ -172,6 +172,7 @@
 						.transition().duration(2000).delay(200)
 						.attr("d", area);
 
+<<<<<<< HEAD
 					svg.selectAll("path#upsideLine")
 						.transition().duration(2000).delay(200)
 						.attr("d", upsideLine);
@@ -186,6 +187,9 @@
 						.attr("d", line);
 
 					var axis = d3.selectAll("g.y")
+=======
+					var axis = d3.selectAll("g.priceY")
+>>>>>>> changes
 						.transition().duration(2000).delay(200)
 						.call(yAxis)
 				});
