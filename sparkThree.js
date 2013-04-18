@@ -1,6 +1,6 @@
-var marginsparkThree = {top: 5, right: 5, bottom: 5, left: 5},
-	sparkWidthThree = 265 - marginsparkThree.left - marginsparkThree.right,
-	sparkHeightThree = 50 - marginsparkThree.top - marginsparkThree.bottom;
+var marginsparkThree = {top: 5, right: 20, bottom: 5, left: 20},
+	sparkWidthThree = 251 - marginsparkThree.left - marginsparkThree.right,
+	sparkHeightThree = 40 - marginsparkThree.top - marginsparkThree.bottom;
 
 var parseDate = d3.time.format("%d-%b-%y").parse;
 
@@ -35,9 +35,17 @@ sparkThree.append("path")
 	.datum(data)
 	.attr("class", "sparkLine")
 	.attr("d", sparkLineThree);
+
+sparkThree.append("g")
+  .append("text")
+    .attr("class", "label")
+    .attr("x", sparkWidthThree)
+    .attr("y", sparkHeightThree)
+    .style("text-anchor", "end")
+    .text("Historical Rates");
 });
 
-var aspect = 265 / 50,
+var aspect = 251 / 40,
 chart = $("#sparkThree");
 $(window).on("resize", function() {
 	var targetWidth = chart.parent().width();

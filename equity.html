@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Stock Mosaics</title>
+		<link rel="stylesheet" href="css/stockMosaics.css" type="text/css" media="screen" />
+	 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src="finFunctions.js"></script>
+		<script src="sparkLines.js"></script>
+		<script src="sliders.js"></script>
+	</head>
+	<body>
+		<img src="images/logo-light-clear.png" id="logo"/>
+		<p class="link">Log In</p>
+		<h1 class="ticker">GOOG</h1>
+		<h2 class="companyName">Google Inc.</h2>
+			<svg id="chart"></svg>
+		<h1 class="gr">2013 User Price Estimates</h1><br>
+		<div id="histogram"></div>
+		<h1 class="gr">Annual Growth Rates</h1>
+		<form>
+			Revenue: <input class="field" type="float" id="revenue" value="0.00" />
+			<div class= "slider" id="revenueSlider"></div>
+			<svg id="sparkOne" width="265" height="50"></svg><br>
+			Asset: <input class="field" type="float" id="asset" value="0.00" />
+			<div class= "slider" id="assetSlider"></div>
+			<svg id="sparkTwo" width="265" height="50"></svg><br>
+			Capital Expenditure: <input class="field" type="float" id="capex" value="0.00" />
+			<div class= "slider" id="capExSlider"></div>
+			<svg id="sparkThree" width="265" height="50"></svg><br>
+			Research & Development: <input class="field" type="float" id="rnd" value="0.00" />
+			<div class= "slider" id="rndSlider"></div>
+			<svg id="sparkFour" width="265" height="50"></svg><br>
+			<input id="submitButton" type="submit" />
+		</form>
+		<!--d3 code-->
+		<script src="getLineGraph.js"></script>
+		<script src="sparkOne.js"></script>
+		<script src="sparkTwo.js"></script>
+		<script src="sparkThree.js"></script>
+		<script src="sparkFour.js"></script>
+
+		<!--on form submit-->
+		<script type="text/javascript">
+			$("form").submit(function() {
+				var revenue = parseFloat(document.getElementById("revenue").value);
+				var asset = parseFloat(document.getElementById("asset").value);
+				var capex = parseFloat(document.getElementById("capex").value);
+				var rnd = parseFloat(document.getElementById("rnd").value);
+				
+				d3.csv("data/yelpSharePrices.csv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+						d.upside = +d.upside;
+						d.downside = +d.downside;
+					})
+
+				  	var priceTargets = findPriceTargets(revenue, asset, capex, rnd);
+
+				  	for (var i=0; i < priceTargets.length; i++) {
+				  		priceTargets[i] = Math.round(priceTargets[i]);
+				  		data[i].close = priceTargets[i];
+				  	}
+
+				  	$( "#priceTargetLabel" ).val(priceTargets.reverse());
+
+					x.domain(d3.extent(data, function(d) { return d.date; }));
+
+					if (d3.max(data, function(d) { return d.close; }) > d3.max(data, function(d) { return d.upside; })) {
+						y.domain([0,d3.max(data, function(d) { return d.close; })]);
+					} else {
+						y.domain([0,d3.max(data, function(d) { return d.upside; })]);
+					}
+
+					svg.selectAll("path.area")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d", area);
+
+					svg.selectAll("path#upsideLine")
+						.transition().duration(2000).delay(200)
+						.attr("d", upsideLine);
+
+					svg.selectAll("path#downsideLine")
+						.transition().duration(2000).delay(200)
+						.attr("d", downsideLine);
+
+					svg.selectAll("path#priceLine")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d", line);
+
+					var axis = d3.selectAll("g.y")
+					var axis = d3.selectAll("g.priceY")
+						.transition().duration(2000).delay(200)
+						.call(yAxis)
+				});
+				
+				d3.tsv("data/sparkOne.tsv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+					})
+					for (var i=8; i < data.length; i++) {
+						data[i].close = data[i].close * (1 + revenue);
+					}
+
+					xSpark.domain(d3.extent(data, function(d) { return d.date; }));
+				  	ySpark.domain(d3.extent(data, function(d) { return d.close; }));
+
+					sparkOne.selectAll("path")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d",sparkLine);
+				});
+				
+				d3.tsv("data/sparkTwo.tsv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+					})
+					for (var i=8; i < data.length; i++) {
+						data[i].close = data[i].close * (1 + asset);
+					}
+
+					xSparkTwo.domain(d3.extent(data, function(d) { return d.date; }));
+				  	ySparkTwo.domain(d3.extent(data, function(d) { return d.close; }));
+
+					sparkTwo.selectAll("path")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d",sparkLineTwo);
+				});
+				d3.tsv("data/sparkThree.tsv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+					})
+					for (var i=8; i < data.length; i++) {
+						data[i].close = data[i].close * (1 + capex);
+					}
+
+					xSparkThree.domain(d3.extent(data, function(d) { return d.date; }));
+				  	ySparkThree.domain(d3.extent(data, function(d) { return d.close; }));
+
+					sparkThree.selectAll("path")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d",sparkLineThree);
+				});
+				d3.tsv("data/sparkFour.tsv", function(error, data) {
+					data.forEach(function(d) {
+						d.date = parseDate(d.date);
+						d.close = +d.close;
+					})
+					for (var i=8; i < data.length; i++) {
+						data[i].close = data[i].close * (1 + rnd);
+					}
+
+					xSparkFour.domain(d3.extent(data, function(d) { return d.date; }));
+				  	ySparkFour.domain(d3.extent(data, function(d) { return d.close; }));
+
+					sparkFour.selectAll("path")
+						.data([data])
+						.transition().duration(2000).delay(200)
+						.attr("d",sparkLineFour);
+				});
+				return false;
+			});
+		</script>
+	</body>
+</html>

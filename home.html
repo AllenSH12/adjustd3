@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="resources/cssgrid/css/1140.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="resources/cssgrid/css/styles.css" type="text/css" media="screen" />
+	 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+	 	<link href='http://fonts.googleapis.com/css?family=Sintony:400,700' rel='stylesheet' type='text/css'>
+	 	<script type="text/javascript" src="resources/cssgrid/js/css3-mediaqueries.js"></script>
+	 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+			}
+			html, body {
+				background-image: url("images/sneaker_mesh_fabric.png");
+				height: 100%;
+				font-family: 'Sintony', sans-serif;
+			}
+			#logo {
+				margin-top: 20px;
+			}
+			#searchBox {
+				border-color: #ecf0f1;
+				border-width: 2px;
+				border-style: solid;
+				border-radius: 5px;
+				width: 70%;
+				height: 41px;
+			}
+			#submitButton {
+				background: url("images/button.png");
+				width: 153px;
+				height: 45px;
+				border: none;
+				color: #ecf0f1;
+			}
+			input:focus {
+				border-color: #27AE60;
+				outline-style: none;
+			}
+			form {
+				margin-top: 125px;
+			}
+			.header {
+				width: 100%;
+				float: left;
+				background-image: url("images/header_bg.png");
+			}
+			#footerBar {
+				margin-top: 20px;
+			}
+			#footer p {
+				font-size: 16px;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				text-align: center;
+			}
+			.wrapper {
+				min-height: 100%;
+				height: auto;
+				height: 100%;
+				margin: 0 auto -4em;
+			}
+			.footer, .push {
+				height: 4em;
+				clear: both;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="header">
+			</div>
+			<div class="row">
+				<div class="twocol"></div>
+				<div class="eightcol">
+					<img id="logo" src="images/logo-clear.png" />
+				</div>
+				<div class="twocol last"></div>
+			</div>
+			<div class="row">
+				<div class="threecol"></div>
+				<div class="sixcol">
+					<form>
+						<input id="searchBox" value="AAPL, TSLA, etc." onfocus='javascript: this.value = ""'/>
+						<input id="submitButton" type="submit" />
+					</form>
+				</div>
+				<div class="threecol last"></div>
+			</div>
+			<div class="push"></div>
+		</div>
+		<div class="footer">
+			<div class="row">
+				<div class="threecol">
+				</div>
+				<div class="sixcol">
+					<img id="footerBar" src="images/footer.png" />
+				</div>
+				<div class="threecol last"></div>
+			</div>
+			<div class="row" id="footer">
+				<div class="fourcol"></div>
+				<div class="fourcol">
+					<p>Contact	 |	 Team	|	Legal	|	Blog</p>
+				</div>
+				<div class="fourcol last"></div>
+			</div>
+		</div>
+	</body>
+</html>

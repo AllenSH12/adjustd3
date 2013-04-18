@@ -1,6 +1,7 @@
 body {
 	font: 10px sans-serif;
-	background-image: url("../images/light_wool.png")
+	background-image: url("../images/light_wool.png");
+	font-family: 'Lato', sans-serif;
 }
 .row {
 	background-color: #fff;
@@ -8,16 +9,34 @@ body {
 }
 #header {
 	height:100px;
+	padding-left:-100px;
 	background-color: rgb(50,50,50);
 }
 #logo {
-	margin: 25px;
+	margin-top: 25px;
+}
+#chart {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+form {
+	font-size: 14px;
 }
 .link{
 	color: #ECF0EF;
 	text-decoration: underline;
+	margin: 40px;
 	font-size: 16px;
 	float: right;
+}
+#footerBar {
+	margin-top: 20px;
+}
+#footer p {
+	font-size: 16px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
 }
 .axis path,
 .axis line {
@@ -29,39 +48,51 @@ svg .area {
 	opacity: .5;
 	fill:#3498DB;
 }
+.areaup {
+	opacity: .5;
+	fill:#27ae60;
+}
+.areadown {
+	opacity: .5;
+	fill:#c0392b;
+}
 .line {
 	stroke-width:2px;
 }
 #priceLine {
-	fill:none;
-	stroke:#3498DB;
+	opacity: .5;
+	fill:#3498DB;
 }
 
 #upsideLine {
-	fill: none;
-	stroke: #27ae60;
-	shape-rendering: crispEdges;
+	opacity: 1;
+	fill: #27ae60;
 }
 #downsideLine {
-	fill: none;
-	stroke: #c0392b;
-	shape-rendering: crispEdges;
+	opacity: 1;
+	fill: #c0392b;
 }
 .sparkLine{
 	fill: none;
 	stroke: #3498DB;
-}
-.metric {
-	display: block;
-	font-size: 16px;
+	margin-left: 20px;
 }
 .gr {
 	text-align: center;
 }
 #submitButton {
-	float: right;
+	background: url("../images/button.png");
+	width: 153px;
+	height: 45px;
+	border: none;
+	color: #ecf0f1;
+	font-size: 14px;
+	margin-left: auto;
+	margin-right: auto;
 }
 .field {
+	float: right;
+	margin-right: 25px;
 	border: 0;
 	font-size: 16px;
 	text-align: right;
@@ -84,6 +115,12 @@ svg .area {
 	margin-right: 20px;
 	margin-bottom: 10px;
 	margin-left: 20px;
+}
+.label {
+	color: rgb(0,0,0);
+	stroke:none;
+	fill:rgb(0,0,0);
+	font-size: 11px;
 }
 #priceTargetLabel {
 	width: 100%;

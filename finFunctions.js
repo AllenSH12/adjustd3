@@ -1,50 +1,54 @@
-var localAds = [171.1,240.9,321.3,389, 401,412,425,438];
-var brandAds = [24.2,28.2,34.1,38.9, 40.47,40,41.28,42.1];
-var otherServices = [9.1,11.7,12,14, 14.56,14.85,15,15];
-var cogsInclDnA = [14,20,25,40,43,46,49,52];
-var rND = [19.2,26.88,34.944,41.9328,46.13,50.74,55.8,61.39];
-var sNM = [0,0,0,0,0,0,0,0];
-var otherExp = [114.832,160.7648,208.99,250.79,275.87,303.46,333.81,367.186];
-var interestRate = [.05,.05,.05,.05,.05,.05,.05,.05];
+var internetSearchEngineAdRevenue = [19443,26145,31221,32157.63,33122.3589,34116.029667,35139.51055701,36193.6958737203,37279.5067499319,38397.8919524299,39549.8287110028];
+var googleWebSites = [8793,10386,12465,12714.3,12968.586,13227.95772,13492.5168744,13762.367211888,14037.6145561258,14318.3668472483,14604.7341841932];
+var googleNetworkWebSites = [0,0,2621,2673.42,2726.8884,2781.426168,2837.05469136,2893.7957851872,2951.67170089094,3010.70513490876,3070.91923760694];
+var mobile = [1085,1374,2354,2377.54,2401.3154,2425.328554,2449.58183954,2474.0776579354,2498.81843451475,2523.8066188599,2549.0446850485];
+var home = [29321,37905,49865,51138.93,52447.3491,53791.224513,55171.55119035,56589.3526290513,58045.681702787,59541.6215173837,61078.2862914277];
+var cogsInclDnA = [10344,12939,16291,17431.37,18651.5659,19957.175513,21354.17779891,22848.9702448337,24448.3981619721,26159.7860333101,27990.9710556418];
+var rND = [2900,4101,4685,7496,10494.4,13642.72,16371.264,18008.3904,19809.22944,21790.152384,23969.1676224];
+var sNM = [2538,4228,4875,5606.25,6447.1875,7414.265625,8526.40546875,9805.3662890625,11276.1712324219,12967.5969172851,14912.7364548779];
+var otherExp = [0,0,-420.78,-316.9062,-203.803914,-82.2772675,29.5227215461999,110.175966096898,201.341670632139,304.255537144232,420.302763709842];
+var interestRate = [.15];
 
-var cashEq = [116.100828,188.69892956,286.5468214012,395.236266661724,484.512406992283,551.619306778552,593.505306950212,606.793105225999];
-var acctsRec = [3.599784,3.67177968,3.7452152736,3.820119579072,3.89652197065344,3.97445241006651,4.05394145826784,4.1350202874332];
-var stInv = [0,0,0,0,0,0,0,0];
+var cashEq = [44792,43348,69583,109010.478975,143048.84949875,171280.602714687,194195.861009162,213355.834247919,228238.858105178,238261.572222166,242771.448572265];
+var acctsRec = [14260,18702,27173,27716.46,28270.7891999999,28836.204984,29412.92908368,30001.1876653536,30601.2114186607,31213.2356470339,31837.5003599746];
+var stInv = [80136,119631,116667,119000.34,121380.3468,123807.953736,126284.11281072,128809.795066934,131385.990968273,134013.710787639,136693.985003391];
 var mktSec = [0,0,0,0,0,0,0,0];
-var inv = [0,0,0,0,0,0,0,0];
+var inv = [,0,0,0,0,0,0,0,0,0] 
 var defTaxAssets = [0,0,0,0,0,0,0,0];
-var prepaidExp = [0.10404,0.1061208,0.108243216,0.11040808032,0.1126162419264,0.114868566764928,0.117165938100227,0.119509256862231];
-var accRev = [0,0,0,0,0,0,0,0];
-var otherCurrAssets = [0.124848,0.12734496,0.1298918592,0.132489696384,0.13513949031168,0.137842280117914,0.140599125720272,0.143411108234677];
+var prepaidExp = [0,0,0,0,0,0,0,0];
+var otherCurrAssets = [13067.22,13328.6,13595.14,13867.04,14144.4,14427.26,14715.8,15010.1];
+var currentAssets = [,268794.498975,306028.54989875,337519.897122688,363759.941305322,386311.196150003,404653.327245302,418204.330745094,426313.062265651];
 
-var tangibleAssets = [0.11,0.11,0.11,0.12,0.12,0.12,0.12,0.12];
-var bldsStructures = [0,0,0,0,0,0,0,0];
+var tangibleAssets = [0,0,0,0,0,0,0,0];
+var bldsStructures = [66493.35,67158.2835,67829.866335,68508.16499835,69193.2466483335,69885.1791148168,70584.030905965,71289.8712150247];
 var machineryEq = [0,0,0,0,0,0,0,0];
 var furnitureEq = [0,0,0,0,0,0,0,0];
 var land = [0,0,0,0,0,0,0,0];
-var accDep = [0,0,0,0,0,0,0,0,];
+var accDep = [,22013.96,22234.0996,22456.440596,22681.00500196,22907.8150519796,23136.8932024994,23368.2621345244,23601.9447558696];
 var intangAssets = [0,0,0,0,0,0,0,0];
-var software = [0,0,0,0,0,0,0,0,];
-var goodwill = [0,0,0,0,0,0,0,0,];
-var otherNetInt = [0,0,0,0,0,0,0,0,];
-var invAndOtherAssets = [0,0,0,0,0,0,0,0,];
+var software = [0,0,0,0,0,0,0,0];
+var goodwill = [0,0,0,0,0,0,0,0];
+var otherNetInt = [0,0,0,0,0,0,0,0];
+var invAndOtherAssets = [,4496.52,4541.4852,4586.900052,4632.76905252,4679.0967430452,4725.88771047565,4773.14658758041,4820.87805345621];
 var invSec = [0,0,0,0,0,0,0,0];
 var longTimeDeposit =[0,0,0,0,0,0,0,0];
 var allowance = [0,0,0,0,0,0,0,0];
 var otherRec = [0,0,0,0,0,0,0,0];
-var otherLTAssets = [0,0,0,0,0,0,0,0];
+var otherLTAssets = [,70943.41,71652.8441,72369.372541,73093.06626641,73823.9969290741,74562.2368983648,75307.8592673485,76060.937860022];
+var totAssets = [432741.738975,471615.26229875,504762.476646688,532674.946624562,556915.351522435,576963.524171459,592237.629640512,602086.694150024];
 
-var stNP = [0,0,0,0,0,0,0,0];
-var stDebt = [0,0,0,0,0,0,0,0];
+var stNP = [7795.2,8184.96,8594.208,9023.9184,9475.11432,9948.870036,10446.3135378,10968.62921469];
+var stDebt = [12025.65,12626.9325,13258.279125,13921.19308125,14617.2527353125,15348.1153720781,16115.521140682,16921.2971977161];
 var stBorrowing = [0,0,0,0,0,0,0,0];
 var currentInstLTDebt = [0,0,0,0,0,0,0,0];
 var bondsDue = [0,0,0,0,0,0,0,0];
-var aP = [0.5,0.52,0.55,0.57,0.60,0.63,0.66,0.77];
-var accExp = [0.62,0.65,0.68,0.71,0.75,0.79,0.83,0.87];
+var aP = [0,0,0,0,0,0,0,0];
+var accExp = [0,0,0,0,0,0,0,0];
 var iTaxPay = [0,0,0,0,0,0,0,0];
 var allowProd = [0,0,0,0,0,0,0,0];
 var divPay = [0,0,0,0,0,0,0,0];
-var otherCurrLiab = [2.64,2.77,2.91,3.05,3.20,3.36,3.53,3.71];
+var currentLiabilities = [53821.49,55152.5389,56536.539989,57976.00487389,59473.5693818789,61031.9997579102,62654.1991718124,64343.2145506698];
+var otherCurrLiab = [34000.64,34340.6464,34684.052864,35030.89339264,35381.2023265664,35735.0143498321,36092.3644933304,36453.2881382637];
 
 var ltDebt = [0,0,0,0,0,0,0,0];
 var bond = [0,0,0,0,0,0,0,0];
@@ -54,38 +58,48 @@ var ltBorrow = [0,0,0,0,0,0,0,0];
 var defTaxLiab = [0,0,0,0,0,0,0,0];
 var provRiskCharge = [0,0,0,0,0,0,0,0];
 var retirementSevBenef = [0,0,0,0,0,0,0,0];
-var otherNonCurrLiab = [0.6,0.63,0.66,0.69,0.72,0.76,0.76,0.80,0.84];
+var otherNonCurrLiab = [16858.8,17701.74,18586.827,19516.16835,20491.9767675,21516.575605875,22592.4043861688,23722.0246054772];
 
 var redeemablePrefStock = [0,0,0,0,0,0,0,0];
-var addPic = [148.7,151.7,154.7,157.8,161,164.2,167.5,170.9];
-var retainedEarnings = [49.3,123.6,224.5,336.7,428.6,497.1,539.2,551.3];
+var addPic = [88934.82,90713.5164,92527.786728,94378.34246256,96265.9093118112,98191.2274980474,100155.052048008,102158.153088969];
+var retainedEarnings = [195147.205175,205541.19321275,209737.321700188,208231.650138516,202612.662466618,192344.223193374,176827.176024464,155391.71956198];
 var tStock = [0,0,0,0,0,0,0,0];
-var commonEq = [14.2,14.5,14.8,15.1,15.4,15.7,16,16.3];
-var assetLiabDiffPlug = [-96.5,-101.7,-108.2,-115.3,-121.5,-126.6,-130.6,-133.2];
+var commonEq = [0,0,0,0,0,0,0,0];
+var commonEq = [0,0,0,0,0,0,0,0];
+var assetLiabDiffPlug = [77979.4238,102506.273786,127374.0012295,152572.780799596,178071.233594627,203879.498116252,230008.798010058,256471.582342928];
 var cumTranslAdj = [0,0,0,0,0,0,0,0];
 var unrealizedGainLossMktSec = [0,0,0,0,0,0,0,0];
 
-var dNA=[0.276119402985075, 0.289473684210526, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var dep=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var amortInt=[0, 0, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var sGnAGrowthRate=[0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15, 0.15];
-var rnDGrowthRate=[0.6, 0.4, 0.3, 0.2, 0.1, 0.1, 0.1, 0.1];
-var sGnAOtherGrowthRates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var intnFXGrowthRates=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var nonopIncomeExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var nonopIntIncome=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var otherIncExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var intExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var grossIntExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var intCapitalized=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var fixedAssetsImpariment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var unusualExpInc=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var finAssetsImpairment=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var reorgRestructureExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var goodwillWriteOff=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var legalClaimExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var unrealizedInvLossGain=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
-var otherUnusualExp=[0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05];
+var netIncome = [16162.205175,10393.98803775,4196.1284874375,-1505.67156167182,-5618.9876718982,-10268.4392732433,-15517.0471689103,-21435.456462484];
+var dNA = [22013.96,22234.0996,22456.440596,22681.00500196,22907.8150519796,23136.8932024994,23368.2621345244,23601.9447558696];
+
+var acctsRecDelta = [-554.3292,-565.415784000001,-576.724099679999,-588.258581673599,-600.023753307072,-612.024228373215,-624.26471294068];
+var otherCurrAssetsDelta = [-261.3444,-266.571288000001,-271.902713760001,-277.340768035201,-282.887583395905,-288.545335063822,-294.316241765098];
+var aPDelta = [-371.200000000001,-389.76,-409.248,-429.7104,-451.19592,-473.755716,-497.4435018,-522.315676890001];
+var otherCurrLiabDelta = [,-5957,-7836,-336.639999999999,-340.006399999998,-343.406463999999,-346.840528640001,-350.308933926397,-353.812023265666,-357.350143498319,-360.923644933304];
+
+var disposalFixedAssets = [0,0,0,0,0,0,0,0];
+var Capex= [54050.448975,36699.53442375,30878.1262589376,25543.6637429843,21767.0319723843,17465.143434618,12576.0772748566,7030.42891134597];
+var increaseInvestments= [0,0,0,0,0,0,0,0];
+var decreaseInvestments= [0,0,0,0,0,0,0,0];
+var purchaseInvSecurities = [2380.0068,2427.606936,2476.15907471999,2525.68225621441,2576.19590133868,2627.71981936548,2680.27421575278];
+var otherInvestingActivities= [0,0,0,0,0,0,0,0];
+var cashfromInvestingActivities = [-2964,2333.34,2380.0068,2427.606936,2476.15907471999,2525.68225621441,2576.19590133868,2627.71981936548,2680.27421575278];
+
+var freeCashFlow = [90402.18795,67578.3781475,55863.776538875,45123.3421627386,37498.9311149274,28824.4599585376,18976.1845688796,7815.39969191227];
+
+var shortTermBorrowingDelta = [0,0,0,0,0,0,0,0];
+var increaseLongTermBorrowings= [0,0,0,0,0,0,0,0];
+
+var netIncreaseShortTermLoansPayable = [371.200000000001,389.76,409.248,429.7104,451.19592,473.755716,497.4435018,522.315676890001];
+var DecreaseLongTermBorrowings = [0,0,0,0,0,0,0,0];
+var IncreaseCapitalStocks= [0,0,0,0,0,0,0,0];
+var DecreaseCapitalStocks=[0,0,0,0,0,0,0,0];
+var otherFinancingActivities= [0,0,0,0,0,0,0,0];
+var cashFinancingActivities= [371.200000000001,389.76,409.248,429.7104,451.19592,473.755716,497.4435018,522.315676890001];
+var NetChangesCash= [39427.478975,34038.37052375,28231.7532159375,22915.2582944744,19159.9732387575,14883.0238572583,10022.7141169885,4509.87635009909];
+
+
 
 var taxes=[1.02,1.04,1.061,1.0718,1.08254,1.09336,1.1043,1.11534];
 
@@ -99,11 +113,13 @@ var bookValue = [];
 function findPriceTargets(a,b,c,d) {
 	var years = 8;
 	
-	var revenues = [localAds, brandAds, otherServices];
+	var revenues = [internetSearchEngineAdRevenue,googleWebSites, googleNetworkWebSites, mobile, home ];
 	var grossProfit = sumColumnsOfArrays(revenues);
+
 	for (var i=0; i<grossProfit.length; i++) {
 		grossProfit[i] = (grossProfit[i] * (1+a))
 	}
+	
 	var ebit = [];
 	var interestFX = [];
 	var ebt = [];
@@ -131,23 +147,27 @@ function findPriceTargets(a,b,c,d) {
 		netIncome[i] = ebt[i] - taxes[i];
 		earningsPerShare[i] = netIncome[i] / sharesOut[i];
 		ebitda[i] = netIncome[i] + interestFX[i] + taxes[i] + dNA[i];
-		cashFromOperatingActivities[i] = ebit[i] + intExp[i] + iTaxPay[i] + dNA[i] + acctsRecDelta[i] + iTaxPayDelta[i] + prepaidExpDelta[i] + otherCurrAssetsDelta[i] + aPDelta[i] + otherCurrLiabDelta[i] + accExpDelta[i];
+		cashFromOperatingActivities[i] = ebit[i] + iTaxPay[i] + dNA[i] + acctsRecDelta[i] + iTaxPayDelta[i] + prepaidExpDelta[i] + otherCurrAssetsDelta[i] + aPDelta[i] + otherCurrLiabDelta[i] + accExpDelta[i];
 	}
 
 
-	var currentAssets = sumColumnsOfArrays([cashEq,acctsRec,stInv,mktSec,inv,defTaxAssets,prepaidExp,accRev,otherCurrAssets]);
+
+	var currentAssets = sumColumnsOfArrays([cashEq,acctsRec,stInv,mktSec,inv,defTaxAssets,prepaidExp,otherCurrAssets]);
 	var longTermAssets = sumColumnsOfArrays([tangibleAssets,bldsStructures,machineryEq,furnitureEq,land,accDep,intangAssets,software,goodwill,otherNetInt,invAndOtherAssets,invSec,otherRec,longTimeDeposit,otherLTAssets,allowance]);
 	var totAssets = sumColumnsOfArrays ([currentAssets,longTermAssets]);
+	var totalCashInvActivities = [];
+	var totalCashFinActivities = [];
+
 	for (var i=0; i<totAssets.length; i++) {
 		totAssets[i] = totAssets[i] * (1 + b);
+		totalCashInvActivities[i] = [disposalFixedAssets[i] + increaseInvestments[i] + decreaseInvestments[i] + purchaseInvSecurities[i] + otherInvestingActivities[i]];
+		totalCashFinActivities[i] = [shortTermBorrowingDelta[i]+ increaseLongTermBorrowings[i]+ netIncreaseShortTermLoansPayable[i] + DecreaseLongTermBorrowings[i]+ IncreaseCapitalStocks[i] + DecreaseCapitalStocks[i] + otherFinancingActivities[i] + cashFinancingActivities[i] + NetChangesCash[i]];
 	}
 	var currentLiabilities = sumColumnsOfArrays([stNP,stDebt,stBorrowing,currentInstLTDebt,bondsDue,aP,accExp,iTaxPay,allowProd,divPay,otherCurrLiab]);
 	var nonCurrentLiab = sumColumnsOfArrays([ltDebt,bond,bondWarrant,ltBorrow,defTaxLiab,provRiskCharge,retirementSevBenef,otherNonCurrLiab]);
 	var totLiab = sumColumnsOfArrays([currentLiabilities, nonCurrentLiab]);
 	var stockhldrsEq = sumColumnsOfArrays([redeemablePrefStock,addPic,retainedEarnings,tStock,commonEq,assetLiabDiffPlug,cumTranslAdj,unrealizedGainLossMktSec]);
 	
-	var totalCashInvActivities = [0,0,0,0,0,0,0,0];
-	var totalCashFinActivities = [0,0,0,0,0,0,0,0];
 
 	// assets will not be connected to price target. only several current assets lie within findDifferences, which lies in cashFromOperatingActivities. so totalAssets do not affect the price target directly. we can take out total asset growth as a user input if you want.
 	//revenue should flow into ebt, then opCF's, then FCF, and the P.T. Not sure why it isn't working
